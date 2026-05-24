@@ -16,6 +16,8 @@ export default function BookCard({ book, onClick }: Props) {
         className='w-full h-64 object-cover rounded-t-lg'
         src={`https://covers.openlibrary.org/b/id/${book.cover}-M.jpg`}
         alt={`Cover of ${book.title}`}
+        loading='lazy'
+        decoding='async'
       />
       <div className='p-3'>
         <span className='block font-semibold text-gray-800'>{book.title}</span>

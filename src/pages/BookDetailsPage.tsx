@@ -55,6 +55,8 @@ export default function BookDetailsPage() {
             className='w-64 h-96 object-cover rounded-lg shadow-md flex-shrink-0'
             src={`https://covers.openlibrary.org/b/id/${details.cover}-L.jpg`}
             alt={`Cover of ${details.title}`}
+            loading='eager'
+            decoding='async'
           />
 
           <div className='flex flex-col gap-4'>

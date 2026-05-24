@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { Book } from '../types/books'
 import { searchBooks } from '../api/openLibrary'
 import { useNavigate } from 'react-router-dom'
@@ -13,17 +13,30 @@ export default function LandingPage() {
   const navigate = useNavigate()
   const { viewedBooks } = useViewedBooks()
   const [searched, setSearched] = useState(false)
+  const [page, setPage] = useState(1)
+  const [totalCount, setTotalCount] = useState(0)
+
+  useEffect(() => {
+    if (!searched) return
+    fetchBooks(searchValue.trim(), page)
+  }, [page])
 
   async function handleSearch(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const term = searchValue.trim()
     if (!term) return
+    setPage(1)
+    fetchBooks(term, 1)
+    setSearched(true)
+  }
+
+  async function fetchBooks(term: string, pageNum: number) {
     setLoading(true)
     setError(null)
-    setSearched(true)
     try {
-      const data = await searchBooks(term)
-      setResults(data)
+      const { books, totalCount } = await searchBooks(term, pageNum)
+      setResults(books)
+      setTotalCount(totalCount)
     } catch {
       setError('Something went wrong. Please try again.')
     } finally {
@@ -67,6 +80,27 @@ export default function LandingPage() {
           />
         ))}
       </div>
+      {results.length > 0 && (
+        <div className='flex items-center gap-4 mt-6'>
+          <button
+            disabled={page === 1}
+            onClick={() => setPage(page - 1)}
+            className='bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
+          >
+            Prev
+          </button>
+          <p className='text-gray-600'>
+            {page} of {Math.ceil(totalCount / 10)}
+          </p>
+          <button
+            disabled={page * 10 >= totalCount}
+            onClick={() => setPage(page + 1)}
+            className='bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
+          >
+            Next
+          </button>
+        </div>
+      )}
       {viewedBooks.length > 0 && (
         <>
           <h2 className='text-2xl font-bold text-gray-800 mb-6 mt-10'>Previously viewed</h2>

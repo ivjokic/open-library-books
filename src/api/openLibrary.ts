@@ -1,9 +1,15 @@
 import type { RawBook, Book, BookDetails } from '../types/books'
 
-export async function searchBooks(title: string): Promise<Book[]> {
-  const res = await fetch(`https://openlibrary.org/search.json?title=${encodeURIComponent(title)}`)
+export async function searchBooks(
+  title: string,
+  page: number,
+): Promise<{ books: Book[]; totalCount: number }> {
+  const res = await fetch(
+    `https://openlibrary.org/search.json?title=${encodeURIComponent(title)}&limit=10&page=${page}`,
+  )
   if (!res.ok) throw new Error(`HTTP ${res.status}`)
   const data = await res.json()
+  const totalCount = data.numFound
   const books = data.docs
     .filter((book: RawBook) => book.cover_i)
     .map(
@@ -17,7 +23,7 @@ export async function searchBooks(title: string): Promise<Book[]> {
       }),
     )
 
-  return books
+  return { books, totalCount }
 }
 
 export async function getBookDetails(workId: string, signal?: AbortSignal): Promise<BookDetails> {
