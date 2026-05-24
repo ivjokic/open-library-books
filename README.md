@@ -2,9 +2,11 @@
 
 A React application for searching books using the [Open Library API](https://openlibrary.org).
 
+**Live demo:** [open-library-books.vercel.app](https://open-library-books.vercel.app)
+
 ## Features
 
-- Search books by title
+- Search books by title with paginated results
 - View detailed information about a selected book (cover, author, publisher, ISBN, description)
 - Previously viewed books persisted in localStorage
 
