@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import type { Book } from '../types/books'
 import { searchBooks } from '../api/openLibrary'
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import BookCard from '../components/BookCard'
 import useViewedBooks from '../hooks/useViewedBooks'
 
