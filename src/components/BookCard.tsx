@@ -9,11 +9,12 @@ export default function BookCard({ book, onClick }: Props) {
   return (
     <button
       type='button'
-      className='bg-white rounded-lg shadow-md cursor-pointer hover:shadow-xl transition-shadow overflow-hidden text-left w-full p-0'
+      className='bg-gray-300 rounded-lg shadow-md cursor-pointer hover:shadow-xl transition-shadow overflow-hidden text-left w-full p-0'
       onClick={onClick}
     >
       <img
-        className='w-full h-64 object-cover rounded-t-lg'
+        // className='w-full h-64 object-cover rounded-t-lg'
+        className='w-full h-64 object-top object-cover rounded-t-lg'
         src={`https://covers.openlibrary.org/b/id/${book.cover}-M.jpg`}
         alt={`Cover of ${book.title}`}
         loading='lazy'

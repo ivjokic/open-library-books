@@ -98,17 +98,19 @@ export default function BookDetailsPage() {
             >
               ← Back
             </button>
-            <h1 className='text-3xl font-bold text-white'>{details.title}</h1>
-            <p className='text-gray-300'>
-              <span className='font-semibold'>Author:</span> {book.author}
-            </p>
-            <p className='text-gray-300'>
-              <span className='font-semibold'>Publisher:</span> {book.publisher}
-            </p>
-            <p className='text-gray-300'>
-              <span className='font-semibold'>ISBN:</span> {book.isbn}
-            </p>
-            <p className='text-gray-400 leading-relaxed'>{details.description}</p>
+            <div className='flex flex-col gap-4 max-w-lg'>
+              <h1 className='text-3xl font-bold text-white'>{details.title}</h1>
+              <p className='text-gray-300'>
+                <span className='font-semibold'>Author:</span> {book.author}
+              </p>
+              <p className='text-gray-300'>
+                <span className='font-semibold'>Publisher:</span> {book.publisher}
+              </p>
+              <p className='text-gray-300'>
+                <span className='font-semibold'>ISBN:</span> {book.isbn}
+              </p>
+              <p className='text-gray-400 leading-relaxed'>{details.description}</p>
+            </div>
           </div>
         </>
       )}
