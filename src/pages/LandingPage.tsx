@@ -1,33 +1,37 @@
 import { useEffect, useState } from 'react'
 import type { Book } from '../types/books'
 import { searchBooks } from '../api/openLibrary'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import BookCard from '../components/BookCard'
 import useViewedBooks from '../hooks/useViewedBooks'
 
 export default function LandingPage() {
-  const [searchValue, setSearchValue] = useState('')
+  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchValue, setSearchValue] = useState(searchParams.get('q') ?? '')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [results, setResults] = useState<Book[]>([])
   const navigate = useNavigate()
   const { viewedBooks } = useViewedBooks()
   const [searched, setSearched] = useState(false)
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(Number(searchParams.get('page')) ?? 1)
   const [totalCount, setTotalCount] = useState(0)
 
   useEffect(() => {
-    if (!searched) return
-    fetchBooks(searchValue.trim(), page)
-  }, [page])
+    const q = searchParams.get('q')
+    const p = Math.max(1, Number(searchParams.get('page') ?? 1))
+    if (!q) return
+    setPage(p)
+    fetchBooks(q, p)
+  }, [searchParams])
 
   async function handleSearch(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const term = searchValue.trim()
     if (!term) return
-    setPage(1)
-    fetchBooks(term, 1)
+    console.log('handleSearch called, term:', term)
     setSearched(true)
+    setSearchParams({ q: term, page: '1' })
   }
 
   async function fetchBooks(term: string, pageNum: number) {
@@ -84,7 +88,9 @@ export default function LandingPage() {
         <div className='flex items-center gap-4 mt-6'>
           <button
             disabled={page === 1}
-            onClick={() => setPage(page - 1)}
+            onClick={() =>
+              setSearchParams({ q: searchParams.get('q') ?? '', page: String(page - 1) })
+            }
             className='bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
           >
             Prev
@@ -94,7 +100,9 @@ export default function LandingPage() {
           </p>
           <button
             disabled={page * 10 >= totalCount}
-            onClick={() => setPage(page + 1)}
+            onClick={() =>
+              setSearchParams({ q: searchParams.get('q') ?? '', page: String(page + 1) })
+            }
             className='bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
           >
             Next

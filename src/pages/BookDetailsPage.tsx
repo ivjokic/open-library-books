@@ -45,7 +45,7 @@ export default function BookDetailsPage() {
       <button
         aria-label='Back to search'
         className='mb-6 text-blue-500 hover:text-blue-700 font-semibold'
-        onClick={() => navigate('/')}
+        onClick={() => navigate(-1)}
       >
         ← Back
       </button>
