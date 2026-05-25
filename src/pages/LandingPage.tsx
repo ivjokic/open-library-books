@@ -65,7 +65,7 @@ export default function LandingPage() {
           />
           <button
             disabled={loading}
-            className='bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
+            className='bg-slate-500 hover:bg-slate-400  text-white px-6 py-2 rounded-lg font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
           >
             Search
           </button>
@@ -92,7 +92,7 @@ export default function LandingPage() {
               onClick={() =>
                 setSearchParams({ q: searchParams.get('q') ?? '', page: String(page - 1) })
               }
-              className='bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
+              className='bg-slate-500 hover:bg-slate-400 text-white px-4 py-2 rounded-lg font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
             >
               Prev
             </button>
@@ -104,7 +104,7 @@ export default function LandingPage() {
               onClick={() =>
                 setSearchParams({ q: searchParams.get('q') ?? '', page: String(page + 1) })
               }
-              className='bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
+              className='bg-slate-500 hover:bg-slate-400  text-white px-4 py-2 rounded-lg font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
             >
               Next
             </button>

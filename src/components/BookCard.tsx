@@ -13,7 +13,6 @@ export default function BookCard({ book, onClick }: Props) {
       onClick={onClick}
     >
       <img
-        // className='w-full h-64 object-cover rounded-t-lg'
         className='w-full h-64 object-top object-cover rounded-t-lg'
         src={`https://covers.openlibrary.org/b/id/${book.cover}-M.jpg`}
         alt={`Cover of ${book.title}`}

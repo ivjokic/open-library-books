@@ -39,61 +39,25 @@ export default function BookDetailsPage() {
   }, [book, addViewedBook])
 
   return (
-    // <div className='min-h-screen bg-gray-50 px-6 py-10 max-w-4xl mx-auto'>
-    //   {loading && <p className='text-gray-500 animate-pulse'>Loading...</p>}
-    //   {error && <p className='text-red-500'>{error}</p>}
-    //   <button
-    //     aria-label='Back to search'
-    //     className='mb-6 text-blue-500 hover:text-blue-700 font-semibold'
-    //     onClick={() => navigate(-1)}
-    //   >
-    //     ← Back
-    //   </button>
-    //   {details && book && (
-    //     <div className='flex gap-10'>
-    //       <img
-    //         className='w-64 h-96 object-cover rounded-lg shadow-md flex-shrink-0'
-    //         src={`https://covers.openlibrary.org/b/id/${details.cover}-L.jpg`}
-    //         alt={`Cover of ${details.title}`}
-    //         loading='eager'
-    //         decoding='async'
-    //       />
-
-    //       <div className='flex flex-col gap-4'>
-    //         <h1 className='text-3xl font-bold text-gray-800'>{details.title}</h1>
-    //         <p className='text-gray-600'>
-    //           <span className='font-semibold'>Author:</span> {book.author}
-    //         </p>
-    //         <p className='text-gray-600'>
-    //           <span className='font-semibold'>Publisher:</span> {book.publisher}
-    //         </p>
-    //         <p className='text-gray-600'>
-    //           <span className='font-semibold'>ISBN:</span> {book.isbn}
-    //         </p>
-    //         <p className='text-gray-500 leading-relaxed'>{details.description}</p>
-    //       </div>
-    //     </div>
-    //   )}
-    // </div>
-    <div className='min-h-screen flex'>
+    <div className='min-h-screen flex flex-col md:flex-row'>
       {loading && <p className='text-gray-400 animate-pulse p-10'>Loading...</p>}
       {error && <p className='text-red-400 p-10'>{error}</p>}
 
       {details && book && (
         <>
-          <div className='bg-gray-900 flex items-center justify-end p-10 w-2/5 min-h-screen'>
+          <div className='bg-gray-900 flex items-center justify-center md:justify-end p-10 w-full md:w-2/5'>
             <img
-              className='w-64 h-96 object-cover rounded-lg shadow-md'
+              className='w-80 h-120 object-cover rounded-lg shadow-md'
               src={`https://covers.openlibrary.org/b/id/${details.cover}-L.jpg`}
               alt={`Cover of ${details.title}`}
               loading='eager'
               decoding='async'
             />
           </div>
-          <div className='bg-gray-800 flex-1 flex flex-col justify-center p-10 gap-4 min-h-screen'>
+          <div className='bg-gray-800 w-full md:flex-1 flex flex-col justify-center p-10 gap-4'>
             <button
               aria-label='Back to search'
-              className='self-start text-blue-400 hover:text-blue-300 font-semibold mb-4'
+              className='self-start text-slate-500 hover:text-slate-400  font-semibold mb-4'
               onClick={() => navigate(-1)}
             >
               ← Back
