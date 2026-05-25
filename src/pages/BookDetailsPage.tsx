@@ -45,7 +45,7 @@ export default function BookDetailsPage() {
 
       {details && book && (
         <>
-          <div className='bg-gray-900 flex items-center justify-center md:justify-end p-10 w-full md:w-2/5'>
+          <div className='bg-gray-900 flex items-center justify-center md:justify-end p-10 w-full md:w-1/2'>
             <img
               className='w-80 h-120 object-cover rounded-lg shadow-md'
               src={`https://covers.openlibrary.org/b/id/${details.cover}-L.jpg`}

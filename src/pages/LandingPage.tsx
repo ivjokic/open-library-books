@@ -8,12 +8,13 @@ import useViewedBooks from '../hooks/useViewedBooks'
 export default function LandingPage() {
   const [searchParams, setSearchParams] = useSearchParams()
   const [searchValue, setSearchValue] = useState(searchParams.get('q') ?? '')
+
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [results, setResults] = useState<Book[]>([])
   const navigate = useNavigate()
   const { viewedBooks } = useViewedBooks()
-  const [searched, setSearched] = useState(false)
+  const [searched, setSearched] = useState(!!searchParams.get('q'))
   const [page, setPage] = useState(Number(searchParams.get('page')) ?? 1)
   const [totalCount, setTotalCount] = useState(0)
 
@@ -29,7 +30,6 @@ export default function LandingPage() {
     e.preventDefault()
     const term = searchValue.trim()
     if (!term) return
-    console.log('handleSearch called, term:', term)
     setSearched(true)
     setSearchParams({ q: term, page: '1' })
   }
@@ -53,7 +53,7 @@ export default function LandingPage() {
       <div className='max-w-6xl mx-auto px-6 py-10'>
         <h1 className='text-4xl font-bold text-gray-200 mb-8'>Book Search</h1>
 
-        <form className='flex gap-3 mb-10' onSubmit={handleSearch}>
+        <form className='flex gap-3 mb-4' onSubmit={handleSearch}>
           <input
             className='flex-1 bg-gray-100 border border-gray-600 text-gray-900 placeholder-gray-400 rounded-lg px-4 py-2 text-lg focus:outline-none focus:ring-2 focus:ring-blue-400'
             id='searchInput'
@@ -71,12 +71,14 @@ export default function LandingPage() {
           </button>
         </form>
         {!searched && !loading && viewedBooks.length === 0 && (
-          <p className='text-gray-400 text-center mt-10'>Search for a book to get started</p>
+          <p className='text-gray-400'>Search for a book to get started</p>
         )}
-        {loading && <p className='text-gray-200 animate-pulse'>Loading...</p>}
-        {error && <p className='text-red-500'>{error}</p>}
-        {!loading && results.length === 0 && searched && <p>No results found.</p>}
-        <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
+        {loading && <p className='text-gray-200 animate-pulse mb-4'>Loading...</p>}
+        {error && <p className='text-red-500 mb-4'>{error}</p>}
+        {!loading && results.length === 0 && searched && (
+          <p className='text-gray-400'>No results found.</p>
+        )}
+        <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-10'>
           {results.map((book) => (
             <BookCard
               key={book.workId}
